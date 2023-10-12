@@ -1,5 +1,5 @@
 # smartplaylist/app
-FROM python:3.10.7-alpine3.16
+FROM python:3.11.6-alpine3.18
 
 RUN apk update && apk upgrade
 RUN apk add --no-cache htop ncdu \
@@ -7,5 +7,5 @@ RUN apk add --no-cache htop ncdu \
 
 WORKDIR /app
 ADD ./src/ ./
-RUN pip install --no-cache-dir pipenv==v2022.10.25 && \
+RUN pip install --no-cache-dir pipenv==2023.10.3 && \
     pipenv install

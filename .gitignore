@@ -1,0 +1,15 @@
+.DS_Store
+.vscode
+*.code-workspace
+
+__pycache__/
+.env
+*.conf
+*.sqlite
+.cache-lastfm*
+
+
+pgdata/
+_NOTES*
+_DEV
+.aider*

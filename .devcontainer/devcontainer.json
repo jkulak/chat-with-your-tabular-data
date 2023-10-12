@@ -1,0 +1,30 @@
+{
+    "name": "cwytd/app",
+    "build": {
+        "dockerfile": "../app/Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "EditorConfig.EditorConfig",
+                "Gruntfuggly.todo-tree",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.pylint",
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ],
+            "settings": {
+                "python.pythonPath": "/usr/local/bin/python",
+                "python.linting.pylintEnabled": true,
+                "python.linting.enabled": true
+            }
+        }
+    },
+    "runArgs": [
+        "--env-file=.env",
+        "--network=network_cwytd"
+    ],
+    "forwardPorts": [],
+    // "postCreateCommand": "cd ${containerWorkspaceFolder}/app/src; pipenv install"
+}
