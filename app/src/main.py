@@ -32,6 +32,9 @@ SQL_DELIMITER = "--------"
 def main() -> None:
     """
     Main function to execute the necessary functions.
+    This function parses the command line arguments, connects to the database,
+    retrieves table definitions, constructs and sends a prompt to the OpenAI API,
+    and executes the returned SQL query.
     """
 
     parser = argparse.ArgumentParser()
@@ -55,12 +58,10 @@ def main() -> None:
         # print("prompt v1", prompt)
         # print("table definitions", table_definitions)
 
-        prompt = llm.add_cap_ref(
-            prompt,
-            f"Use these {POSTGRES_TABLE_DEFINITIONS_CAP_REF} to satisfy the database query.:",
-            POSTGRES_TABLE_DEFINITIONS_CAP_REF,
-            table_definitions,
-        )
+        prompt = llm.add_cap_ref(prompt,
+                                 f"Use these {POSTGRES_TABLE_DEFINITIONS_CAP_REF} to satisfy the database query.:",
+                                 POSTGRES_TABLE_DEFINITIONS_CAP_REF,
+                                 table_definitions)
 
         # print("prompt v2", prompt)
 

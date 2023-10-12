@@ -24,8 +24,9 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 def safe_get(data, dot_chained_keys):
     """
-    {'a': {'b': [{'c': 1}]}}
-    safe_get(data, 'a.b.0.c') -> 1
+    Safely get a value from a nested dictionary or list using dot notation.
+    For example, given the dictionary {'a': {'b': [{'c': 1}]}},
+    safe_get(data, 'a.b.0.c') will return 1.
     """
     keys = dot_chained_keys.split(".")
     for key in keys:
@@ -47,17 +48,17 @@ def response_parser(response: Dict[str, Any]):
 
 
 def prompt(prompt: str, model: str = "gpt-4") -> str:
-    # validate the openai api key - if it's not valid, raise an error
+    """
+    Send a prompt to the OpenAI API and return the response.
+    If the OpenAI API key is not set, exit the program with an error message.
+    """
     if not openai.api_key:
-        sys.exit(
-            """
-
-ERORR: OpenAI API key not found. Please export your key to OPENAI_API_KEY
+        sys.exit(f"""
+ERROR: OpenAI API key not found. Please export your key to OPENAI_API_KEY
 
 Example bash command:
     export OPENAI_API_KEY=<your openai apikey>
-            """
-        )
+        """)
 
     response = openai.ChatCompletion.create(
         model=model,

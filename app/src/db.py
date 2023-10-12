@@ -3,7 +3,13 @@ from psycopg2 import sql
 
 
 class PostgresManager:
+    """
+    Class to manage interactions with a PostgreSQL database.
+    """
     def __init__(self):
+        """
+        Initialize the PostgresManager with no connection or cursor.
+        """
         self.conn = None
         self.cursor = None
 
@@ -17,6 +23,9 @@ class PostgresManager:
             self.conn.close()
 
     def connect_with_url(self, url):
+        """
+        Connect to the PostgreSQL database using the provided URL.
+        """
         self.conn = psycopg2.connect(url)
         self.cursor = self.conn.cursor()
 
