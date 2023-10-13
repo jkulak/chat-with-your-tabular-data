@@ -5,7 +5,6 @@ Purpose:
 """
 
 import os
-import sys
 from typing import Any, Dict
 
 from dotenv import load_dotenv
@@ -18,8 +17,6 @@ assert os.environ.get("OPENAI_API_KEY")
 
 # get openai api key
 openai.api_key = os.environ.get("OPENAI_API_KEY")
-
-# ------------------ helpers ------------------
 
 
 def safe_get(data, dot_chained_keys):
@@ -44,22 +41,10 @@ def response_parser(response: Dict[str, Any]):
     return safe_get(response, "choices.0.message.content")
 
 
-# ------------------ content generators ------------------
-
-
 def prompt(prompt: str, model: str = "gpt-4") -> str:
     """
     Send a prompt to the OpenAI API and return the response.
-    If the OpenAI API key is not set, exit the program with an error message.
     """
-    if not openai.api_key:
-        sys.exit(f"""
-ERROR: OpenAI API key not found. Please export your key to OPENAI_API_KEY
-
-Example bash command:
-    export OPENAI_API_KEY=<your openai apikey>
-        """)
-
     response = openai.ChatCompletion.create(
         model=model,
         messages=[
@@ -83,9 +68,16 @@ def add_cap_ref(
         prompt = 'Refactor this code.'
         prompt_suffix = 'Make it more readable using this EXAMPLE.'
         cap_ref = 'EXAMPLE'
-        cap_ref_content = 'def foo():\n    return True'
+        cap_ref_content = 'def foo():\n
+            return True'
 
-        returns 'Refactor this code. Make it more readable using this EXAMPLE.\n\nEXAMPLE\n\ndef foo():\n    return True'
+        returns
+        'Refactor this code. Make it more readable using this EXAMPLE.\n
+        \n
+        EXAMPLE\n
+        \n
+        def foo():\n
+            return True'
     """
 
     new_prompt = f"""{prompt} {prompt_suffix}\n\n{cap_ref}\n\n{cap_ref_content}"""

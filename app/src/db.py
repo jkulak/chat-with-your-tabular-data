@@ -6,6 +6,7 @@ class PostgresManager:
     """
     Class to manage interactions with a PostgreSQL database.
     """
+
     def __init__(self):
         """
         Initialize the PostgresManager with no connection or cursor.

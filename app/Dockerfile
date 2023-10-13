@@ -2,7 +2,7 @@
 FROM python:3.11.6-alpine3.18
 
 RUN apk update && apk upgrade
-RUN apk add --no-cache htop ncdu \
+RUN apk add --no-cache htop ncdu git \
     && rm -rf /var/cache/apk/*
 
 WORKDIR /app

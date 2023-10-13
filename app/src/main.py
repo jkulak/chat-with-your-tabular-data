@@ -12,6 +12,9 @@ import llm
 
 from db import PostgresManager
 
+# load .env file
+load_dotenv()
+
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
@@ -58,10 +61,12 @@ def main() -> None:
         # print("prompt v1", prompt)
         # print("table definitions", table_definitions)
 
-        prompt = llm.add_cap_ref(prompt,
-                                 f"Use these {POSTGRES_TABLE_DEFINITIONS_CAP_REF} to satisfy the database query.:",
-                                 POSTGRES_TABLE_DEFINITIONS_CAP_REF,
-                                 table_definitions)
+        prompt = llm.add_cap_ref(
+            prompt,
+            f"Use these {POSTGRES_TABLE_DEFINITIONS_CAP_REF} to satisfy the database query.:",
+            POSTGRES_TABLE_DEFINITIONS_CAP_REF,
+            table_definitions,
+        )
 
         # print("prompt v2", prompt)
 
