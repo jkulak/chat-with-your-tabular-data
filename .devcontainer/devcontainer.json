@@ -12,7 +12,11 @@
                 "ms-python.isort",
                 "ms-python.pylint",
                 "ms-python.python",
-                "ms-python.vscode-pylance"
+                "ms-python.vscode-pylance",
+                "github.copilot",
+                "github.copilot-labs",
+                "github.copilot-chat",
+                "eamodio.gitlens"
             ],
             "settings": {
                 "python.pythonPath": "/usr/local/bin/python",
