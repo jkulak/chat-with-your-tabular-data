@@ -8,6 +8,7 @@ psycopg2-binary = "*"
 python-dotenv = "*"
 openai = "*"
 argparse = "*"
+pyautogen = "*"
 
 [dev-packages]
 

@@ -7,6 +7,12 @@ import argparse
 import os
 import sys
 
+from autogen import AssistantAgent
+from autogen import config_list_from_json
+from autogen import config_list_from_models
+from autogen import GroupChat
+from autogen import GroupChatManager
+from autogen import UserProxyAgent
 from dotenv import load_dotenv
 import llm
 
@@ -68,30 +74,19 @@ def main() -> None:
             table_definitions,
         )
 
-        # print("prompt v2", prompt)
+        # Build the gpt_configuration object
 
-        prompt = llm.add_cap_ref(
-            prompt,
-            f"""\n\nRespond in this format {TABLE_RESPONSE_FORMAT_CAP_REF}.
-            Keep the delimiter {SQL_DELIMITER} between description and the sql
-            Make the SQL query below {SQL_DELIMITER} executable as is by the database.
-            """,
-            TABLE_RESPONSE_FORMAT_CAP_REF,
-            f"""<explanation of the sql query>
-{SQL_DELIMITER}
-<here the sql query exclusively as raw text, so it can be executed>""",
-        )
+        # Build the function map
 
-        # print("prompt v3", prompt)
+        # Create our terminame msg function
 
-        prompt_response = llm.prompt(prompt)
-        print("🥫 prompt_response", prompt_response)
+        # Create a set of agents with specific roles
+        # Admin user proxy agent - takes in the prompt and manages the group chat
+        # data engineer agent - generates the sql query
+        # senior data analyst agent - tun the sql query and generate the response
+        # product manager - validate the response to make sure it is correct
 
-        sql_query = prompt_response.split(SQL_DELIMITER)[1].strip()
-        # print("🥗 query", sql_query)
-
-        result = db.run_sql(sql_query)
-        print(result)
+        # create a group chat and initiate the chat
 
 
 if __name__ == "__main__":
